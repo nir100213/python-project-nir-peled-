@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Library Management System</title>
+  <style>
+    /* CSS styles go here */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Library Management System</h1>
+
+    <h2>Add User</h2>
+    <form action="/add_user" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email"><br><br>
+      <input type="submit" value="Add User">
+    </form>
+
+    <h2>Add Book</h2>
+    <form action="/add_book" method="POST">
+      <label for="book-name">Book Name:</label>
+      <input type="text" id="book-name" name="book_name"><br><br>
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author"><br><br>
+      <label for="year-published">Year Published:</label>
+      <input type="number" id="year-published" name="year_published"><br><br>
+      <label for="type">Type:</label>
+      <select id="type" name="type">
+        <option value="1">Type 1</option>
+        <option value="2">Type 2</option>
+        <option value="3">Type 3</option>
+      </select><br><br>
+      <input type="submit" value="Add Book">
+    </form>
+
+    <h2>Add Customer</h2>
+    <form action="/add_customer" method="POST">
+      <label for="customer-name">Name:</label>
+      <input type="text" id="customer-name" name="customer_name"><br><br>
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city"><br><br>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age"><br><br>
+      <input type="submit" value="Add Customer">
+    </form>
+
+    <h2>Add Loan</h2>
+    <form action="/add_loan" method="POST">
+      <label for="customer-id">Customer ID:</label>
+      <input type="number" id="customer-id" name="customer_id"><br><br>
+      <label for="book-id">Book ID:</label>
+      <input type="number" id="book-id" name="book_id"><br><br>
+      <label for="loan-date">Loan Date:</label>
+      <input type="text" id="loan-date" name="loan_date"><br><br>
+      <label for="return-date">Return Date:</label>
+      <input type="text" id="return-date" name="return_date"><br><br>
+      <input type="submit" value="Add Loan">
+    </form>
+
+    <h2>Books</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Year Published</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.name }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.year_published }}</td>
+        <td>{{ book.type }}</td>
+        <td>
+          <form action="/delete_book" method="POST">
+            <input type="hidden" name="book_id" value="{{ book.id }}">
+            <input type="submit" value="Delete">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Customers</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+      {% for customer in customers %}
+      <tr>
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.city }}</td>
+        <td>{{ customer.age }}</td>
+        <td>
+          <form action="/delete_customer" method="POST">
+            <input type="hidden" name="customer_id" value="{{ customer.id }}">
+            <input type="submit" value="Delete">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h2>Loans</h2>
+    <table>
+      <tr>
+        <th>Customer ID</th>
+        <th>Book ID</th>
+        <th>Loan Date</th>
+        <th>Return Date</th>
+        <th>Actions</th>
+      </tr>
+      {% for loan in loans %}
+      <tr>
+        <td>{{ loan.customer_id }}</td>
+        <td>{{ loan.book_id }}</td>
+        <td>{{ loan.loan_date }}</td>
+        <td>{{ loan.return_date }}</td>
+        <td>
+          <form action="/delete_loan" method="POST">
+            <input type="hidden" name="customer_id" value="{{ loan.customer_id }}">
+            <input type="hidden" name="book_id" value="{{ loan.book_id }}">
+            <input type="submit" value="Delete">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</body>
+</html>
